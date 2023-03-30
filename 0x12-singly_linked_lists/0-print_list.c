@@ -1,37 +1,23 @@
-#include "main.h"
-
+#include "lists.h"
 /**
- * fill_binary_array - prints decimal in binary
- * @binary: pointer to binary
- * @int_in: input number
- * @isneg: if input number is negative
- * @limit: size of the binary
- * Return: number of chars printed.
+ * print_list - prints all the elements of a list_t list.
+ * @h: singly linked list.
+ * Return: number of elements in the list.
  */
-char *binaryArray(char *binary, long int int_in, int isneg, int limit)
-{
-	int i;
 
-	for (i = 0; i < limit; i++)
-		binary[i] = '0';
-	binary[limit] = '\0';
-	for (i = limit - 1; int_in > 1; i--)
+size_t print_list(const list_t *h)
+{
+	size_t nelem;
+
+	nelem = 0;
+	while (h != NULL)
 	{
-		if (int_in == 2)
-			binary[i] = '0';
+		if (h->str == NULL)
+			printf("[%d] %s\n", 0, "(nil)");
 		else
-			binary[i] = (int_in % 2) + '0';
-		int_in /= 2;
+			printf("[%d] %s\n", h->len, h->str);
+		h = h->next;
+		nelem++;
 	}
-	if (int_in != 0)
-		binary[i] = '1';
-	if (isneg)
-	{
-		for (i = 0; binary[i]; i++)
-			if (binary[i] == '0')
-				binary[i] = '1';
-			else
-				binary[i] = '0';
-	}
-	return (binary);
+	return (nelem);
 }
